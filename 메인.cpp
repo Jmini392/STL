@@ -1,54 +1,38 @@
 //------------------------------------------------------------------------------------------------------------
-// 2026 1학기 STL 화56 수34		3월 18일                                                             (3주 2일)
+// 2026 1학기 STL 화56 수34		3월 25일                                                             (4주 2일)
 //------------------------------------------------------------------------------------------------------------
-// 많은 수의 자료를 처리하기 - binary I/O
+// callable type
 //------------------------------------------------------------------------------------------------------------
 #include <iostream>
 #include <random>
-#include <print>
-#include <string>
 #include <array>
-#include <fstream>
-#include <algorithm>
+#include <print>
+#include <ranges>
 #include "save.h"
 using namespace std;
 
+// 랜덤값을 갖는 int 1000만개를 메모리에 저장하라.
+// 오름차순으로 정렬한 후 화면에 출력하라.
+
 default_random_engine dre;
-uniform_int_distribution uid{ 0, 9999 };
-uniform_int_distribution uidNameLen{ 10, 30 };
-uniform_int_distribution<int> uidChar{ 'a', 'z' };
+uniform_int_distribution uid{ 0, 999'9999 };
 
-class Dog {
-public:
-	Dog() {
-		num = uid(dre);
-		size_t len = uidNameLen(dre);
-		for (int i = 0; i < len; ++i) {
-			name += uidChar(dre);
-		}
-	}
-	string getName() const { return name; }
-private:
-	string name;				// 10 이상 30 이하 임의의 소문자
-	int num;
+array<int, 1000'0000> a;
 
-	friend ostream& operator<<(ostream& os, const Dog& dog) {
-		print("[{:4}] - {} ", dog.num, dog.name);
-		return os;
-	}
-};
+int 오름차순 (const void * a, const void* b) {
+	return *(int*)a - *(int*)b;
+}
 
 int main() {
-	array<Dog, 1000> dogs;
+	for (int& num : a)
+		num = uid(dre);
+	
+	// 여기서 qsort를 사용하여 오름차순으로 정렬하라
+	qsort(a.data(), a.size(), sizeof(array<int,1000'0000>::value_type), 오름차순);
 
-	// 이름 순으로 정렬하라
-	sort(dogs.begin(), dogs.end(), [](const Dog& a, const Dog& b) {
-		return a.getName() < b.getName();
-		});
-
-	for (const Dog& dog : dogs) {
-		cout << dog << endl;
-	}
+	cout << "정렬 후 - 앞에서 부터 1000개만 출력" << endl;
+	for (int num : a | views::take(1000))
+		print("{:8}", num);
 
 	save("메인.cpp");
 }
