@@ -1,35 +1,30 @@
 //------------------------------------------------------------------------------------------------------------
-// 2026 1학기 STL 화56 수34		4월 1일                                                              (5주 2일)
+// 2026 1학기 STL 화56 수34		4월 8일                                                              (6주 2일)
+// 4월 22일 중간고사 예정
 //------------------------------------------------------------------------------------------------------------
-// 
+// STL 컨테이너 - std::string을 코딩하여 STL 컨테이너에 필요한 것들을 알아본다
 //------------------------------------------------------------------------------------------------------------
 #include <iostream>
 #include <array>
-#include <ranges>
-#include <fstream>
+#include <algorithm>
 #include "save.h"
+#include "YString.h"
 using namespace std;
 
-class Dog {
-public:
-	int getId() const { return id; }
-	string getName() const { return name; }
-private:
-	string name;	// [1 , 16]
-	int id;			// [1, 999'9999]
-};
-
-// [문제] 바이너리 파일 "Dog천만마리"에는 Dog 객체 write로 천만객체를 기록하였다.
-// array에 모든 객체를 읽어와라.
-// 앞에서 100개를 화면에 출력하라.
-
-array <Dog, 1000'0000> dogs;
+extern bool 관찰;
 
 int main() {
-	ifstream in{ "Dog천만마리", ios::binary };
-	if (not in) {
-		cout << "파일을 열 수 없습니다." << endl;
-		return 1;
+	array<YString, 5> a{ "333", "1", "55555", "4444", "22" };
+	
+	관찰 = true;
+	// 오름차순으로 정렬하라
+	sort(a.begin(), a.end(), [](const YString& a, const YString& b) {
+		return a.Getlen() < b.Getlen();
+	});
+	관찰 = false;
+
+	for (YString& s : a) {
+		cout << s << endl;
 	}
 	
 	save("메인.cpp");

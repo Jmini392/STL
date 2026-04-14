@@ -126,10 +126,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="save.cpp" />
+    <ClCompile Include="YString.cpp" />
     <ClCompile Include="메인.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="save.h" />
+    <ClInclude Include="YString.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
