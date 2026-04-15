@@ -48,8 +48,8 @@ YString& YString::operator=(const YString& other) {
 	// 자기 자신을 할당할 이유는 없다.
 	if (this == &other) return *this;
 
-	// 먼저 나를 정리 - p의 동작을 알아봐야 한다
-	p.release();
+	// 먼저 나를 정리
+	p.reset();
 	
 	// 나를 other와 같게 만든다
 	len = other.len;
@@ -64,8 +64,8 @@ YString& YString::operator=(const YString& other) {
 }
 
 // 2026. 4. 8  C++11 move semantics
-YString::YString(YString&& other) : id{ ++gid } {
-	id = other.id;
+YString::YString(YString&& other) noexcept : id{ ++gid } {
+	len = other.len;
 	p.reset(other.p.release());
 
 	other.len = 0;
@@ -75,10 +75,10 @@ YString::YString(YString&& other) : id{ ++gid } {
 	}
 }
 
-YString& YString::operator=(YString&& other) {
+YString& YString::operator=(YString&& other) noexcept {
 	if (this == &other) return *this;
 
-	p.release();
+	p.reset();
 
 	len = other.len;
 	p.reset(other.p.release());

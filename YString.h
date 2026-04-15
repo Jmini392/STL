@@ -19,8 +19,8 @@ public:
 	YString& operator=(const YString&);
 
 	// C++11 move semantics
-	YString(YString&&);
-	YString& operator=(YString&&);
+	YString(YString&&) noexcept;
+	YString& operator=(YString&&) noexcept;
 
 	void special(std::string);		// 클래스의 special함수를 관찰하려는 목적
 

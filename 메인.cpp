@@ -1,12 +1,17 @@
 //------------------------------------------------------------------------------------------------------------
-// 2026 1학기 STL 화56 수34		4월 8일                                                              (6주 2일)
+// 2026 1학기 STL 화56 수34		4월 15일                                                             (7주 2일)
 // 4월 22일 중간고사 예정
 //------------------------------------------------------------------------------------------------------------
-// STL 컨테이너 - std::string을 코딩하여 STL 컨테이너에 필요한 것들을 알아본다
+// STL 컨테이너 - Containers are objects that store other objects
+// array<T, N> - 유일하게 크기 고정된 자료구조
+// vector<T> - dynamic array
 //------------------------------------------------------------------------------------------------------------
 #include <iostream>
-#include <array>
+#include <vector>
+#include <fstream>
 #include <algorithm>
+#include <string>
+#include <numeric>
 #include "save.h"
 #include "YString.h"
 using namespace std;
@@ -14,19 +19,12 @@ using namespace std;
 extern bool 관찰;
 
 int main() {
-	array<YString, 5> a{ "333", "1", "55555", "4444", "22" };
-	
-	관찰 = true;
-	// 오름차순으로 정렬하라
-	sort(a.begin(), a.end(), [](const YString& a, const YString& b) {
-		return a.Getlen() < b.Getlen();
-	});
-	관찰 = false;
+	// [문제] 키보드에서 입력한 정수의 합을 출력하라.
 
-	for (YString& s : a) {
-		cout << s << endl;
-	}
-	
+	int sum = accumulate(istream_iterator<int>(cin), {}, 0);
+
+	cout << "합: " << sum << endl;
+
 	save("메인.cpp");
 }
 
