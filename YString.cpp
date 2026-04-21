@@ -97,6 +97,19 @@ size_t YString::Getlen() const {
 	return len;
 }
 
+void YString::show() { // 2026. 4. 21 special한 순간이 아닐때 관찰하려고
+	special("* show *");
+}
+
+// 표준컨테이너라면 다음 멤버를 제공해야한다
+size_t YString::size() const { // 2026. 4. 21
+	return len;
+}
+
+char* YString::data() const { // 2026. 4. 21
+	return p.get();
+}
+
 std::ostream& operator<<(std::ostream& os, const YString& ys) {
 	for (int i = 0; i < ys.len; ++i)
 		os << ys.p.get()[i];
@@ -108,10 +121,10 @@ void YString::special(std::string 동작) {
 		std::string 글자;
 		size_t printNum = 10;
 		if (len < printNum) printNum = len;
-		for (int i = 0; i < len; ++i)
+		for (int i = 0; i < printNum; ++i)
 			글자 += p.get()[i];
 
-		println("[{:8}] {:8} - 객체:{:#016X} 글자:{:#016X} 개수:{:<4} 내용:{}",
+		println("[{:8}] {:8} - 객체:{:#014X} 글자:{:#014X} 개수:{:<4} 내용:{}",
 			id, 동작, (unsigned long long)this, (unsigned long long)p.get(), len, 글자);
 	}
 }

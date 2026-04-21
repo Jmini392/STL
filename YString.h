@@ -25,7 +25,11 @@ public:
 	void special(std::string);		// 클래스의 special함수를 관찰하려는 목적
 
 	size_t Getlen() const;
+	void show();			// 2026. 4. 21 special한 순간이 아닐때 관찰하려고
 
+	// 표준컨테이너라면 다음 멤버를 제공해야한다
+	size_t size() const;		// 2026. 4. 21
+	char* data() const;			// 2026. 4. 21
 private:
 	size_t id{ };
 	size_t len{ };
