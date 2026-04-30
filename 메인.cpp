@@ -1,18 +1,16 @@
 //------------------------------------------------------------------------------------------------------------
-// 2026 1학기 STL 화56 수34		4월 21일                                                             (8주 1일)
-// 4월 22일 중간고사 예정
+// 2026 1학기 STL 화56 수34		4월 29일                                                             (9주 2일)
 //------------------------------------------------------------------------------------------------------------
 // STL 컨테이너 - Containers are objects that store other objects
 // array<T, N> - 유일하게 크기 고정된 자료구조
-// vector<T> - dynamic array
+// vector<T> - dynamic array -> random access(임의의 위치에 접근이 O(1))
+// list<T> - 임의의 위치에서 추가/제거 동작이 O(1)
 //------------------------------------------------------------------------------------------------------------
 #include <iostream>
-#include <vector>
-#include <fstream>
+#include <list>
 #include <algorithm>
-#include <string>
-#include <numeric>
-#include <array>
+#include <fstream>
+#include <vector>
 #include "save.h"
 #include "YString.h"
 using namespace std;
@@ -21,26 +19,24 @@ extern bool 관찰;
 
 int main() {
 	save("메인.cpp");
-	
-	array<int, 26> alpha{};
-	// [문제] "메인.cpp"의 소문자 개수를 세서 다음과 같이 출력하라
-	// a - 10
-	// b - 3
-	// ...
-	// z - 0
 
-	ifstream in { "메인.cpp" };
-	if (not in)
-		return 20260421;
+	// [문제] 파일에 있는 단어를 list에 저장하라.
+	// list를 사전기준으로 오름차순 정렬하라.
+	// 화면에 출력하라
 
-	char c;
-	while (in >> c) {
-		if (islower(c)) {
-			++alpha[c - 'a'];
-		}
+	ifstream in{ "2026 1학기 STL.txt" };
+	if (not in) return 20260429;
+
+	cout << "파일 읽는중";
+	list<YString> cont{ istream_iterator<YString>{in}, {} };
+	cout << endl;
+
+	cont.sort([](const YString& a, const YString& b) {
+		return lexicographical_compare(a.data(), a.data() + a.size(), b.data(), b.data() + b.size());
+		});
+
+	for (const YString& ys : cont) {
+		cout << ys << endl;
 	}
-
-	for (int i = 0; i < alpha.size(); ++i)
-		cout << static_cast<char>('a' + i) << " - " << alpha[i] << endl;
 }
 

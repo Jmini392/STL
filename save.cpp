@@ -18,7 +18,7 @@ void save(const std::string& fname) {
 		exit(20260304);
 	}
 
-	std::ofstream out{ "2026 1학기 STL.txt", std::ios::app };
+	std::ofstream out{ "2026 1학기 STL_2.txt", std::ios::app };
 
 	// 저장한 시간을 out의 기록하자
 	// std::chrono::system_clock::time_point now = std::chrono::system_clock::now();

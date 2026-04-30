@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 #include <print>
+#include <algorithm>
 #include "YString.h"
 
 bool 관찰{ false };
@@ -92,12 +93,20 @@ YString& YString::operator=(YString&& other) noexcept {
 	return *this;
 }
 
+// 2026. 4. 28
+bool YString::operator==(const YString& rhs) const {
+	// id, len, p 같다. p가 가리키는 메모리에 저장한 문자들이 같아야 같은 것이라 정의
+	if (len != rhs.len) return false;
+
+	return std::equal(p.get(), p.get() + len, rhs.p.get());
+}
+
 // 2026. 4. 8
 size_t YString::Getlen() const {
 	return len;
 }
 
-void YString::show() { // 2026. 4. 21 special한 순간이 아닐때 관찰하려고
+void YString::show() const { // 2026. 4. 21 special한 순간이 아닐때 관찰하려고
 	special("* show *");
 }
 
@@ -116,7 +125,21 @@ std::ostream& operator<<(std::ostream& os, const YString& ys) {
 	return os;
 }
 
-void YString::special(std::string 동작) {
+// 2026. 4. 29
+std::istream& operator>>(std::istream& is, YString& ys) {
+	// 입력버퍼에서 데이터를 가져온다
+	std::string s;
+	is >> s;
+
+	ys.len = s.size();
+	ys.p.reset();
+	ys.p = std::make_unique<char[]>(ys.len);
+	memcpy(ys.p.get(), s.data(), ys.len);
+
+	return is;
+}
+
+void YString::special(std::string 동작) const {
 	if (관찰) {
 		std::string 글자;
 		size_t printNum = 10;

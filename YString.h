@@ -22,10 +22,15 @@ public:
 	YString(YString&&) noexcept;
 	YString& operator=(YString&&) noexcept;
 
-	void special(std::string);		// 클래스의 special함수를 관찰하려는 목적
+	// 2026. 4. 28
+	bool operator==(const YString& rhs) const;
+
+	void special(std::string) const;		// 클래스의 special함수를 관찰하려는 목적
+											// 2026. 4. 29 const 멤버로
 
 	size_t Getlen() const;
-	void show();			// 2026. 4. 21 special한 순간이 아닐때 관찰하려고
+	void show() const;			// 2026. 4. 21 special한 순간이 아닐때 관찰하려고
+								// 2026. 4. 29 const 멤버로
 
 	// 표준컨테이너라면 다음 멤버를 제공해야한다
 	size_t size() const;		// 2026. 4. 21
@@ -38,4 +43,6 @@ private:
 	static size_t gid;				// 생성 시 부여될 고유번호
 
 	friend std::ostream& operator<<(std::ostream& os, const YString& ys);
+	// 2026. 4. 29
+	friend std::istream& operator>>(std::istream& is, YString& ys);
 };
