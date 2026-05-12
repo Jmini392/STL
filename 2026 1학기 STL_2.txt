@@ -879,3 +879,637 @@ int main() {
 	}
 }
 
+
+-------------------------------------------------
+저장시간 - 2026-05-06 11:39:45.6184678
+-------------------------------------------------
+
+//------------------------------------------------------------------------------------------------------------
+// 2026 1학기 STL 화56 수34		5월 6일                                                             (10주 2일)
+//------------------------------------------------------------------------------------------------------------
+// STL 컨테이너 - Containers are objects that store other objects
+// array<T, N> - 유일하게 크기 고정된 자료구조
+// vector<T> - dynamic array -> random access(임의의 위치에 접근이 O(1))
+// list<T> - 임의의 위치에서 추가/제거 동작이 O(1)
+//------------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <list>
+#include <algorithm>
+#include <fstream>
+#include <vector>
+#include "save.h"
+#include "YString.h"
+using namespace std;
+
+extern bool 관찰;
+
+int main() {
+	save("메인.cpp");
+
+	// [문제] 파일에 있는 단어를 list에 저장하라.
+	// list를 사전기준으로 오름차순 정렬하라.
+	// 화면에 출력하라
+
+	ifstream in{ "2026 1학기 STL.txt" };
+	if (not in) return 20260429;
+
+	cout << "파일 읽는중";
+	list<YString> cont{ istream_iterator<YString>{in}, {} };
+	cout << endl;
+
+	cont.sort([](const YString& a, const YString& b) {
+		return lexicographical_compare(a.data(), a.data() + a.size(), b.data(), b.data() + b.size());
+		});
+	
+	cout << "읽은 단어 개수 - " << cont.size() << endl;
+
+	// [문제] 같은 단어가 많아서 같은단어 다 없애면 모두 몇단어 인지 출력
+
+	cont.unique([](const YString& a, const YString& b) {  // 인접(adjacent)한 원소끼리 비교
+		return a == b;
+		});
+	for (const YString& ys : cont)
+		cout << ys << endl;
+
+	cout << "같은 단어 제거한 후 결과" << endl;
+	cout << "단어 수 - " << cont.size() << endl;
+}
+
+
+-------------------------------------------------
+저장시간 - 2026-05-06 11:56:23.2534586
+-------------------------------------------------
+
+//------------------------------------------------------------------------------------------------------------
+// 2026 1학기 STL 화56 수34		5월 6일                                                             (10주 2일)
+//------------------------------------------------------------------------------------------------------------
+// STL 컨테이너 - Containers are objects that store other objects
+// array<T, N> - 유일하게 크기 고정된 자료구조
+// vector<T> - dynamic array -> random access(임의의 위치에 접근이 O(1))
+// list<T> - 임의의 위치에서 추가/제거 동작이 O(1)
+//------------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <list>
+#include <algorithm>
+#include <fstream>
+#include <vector>
+#include "save.h"
+#include "YString.h"
+using namespace std;
+
+extern bool 관찰;
+
+int main() {
+	save("메인.cpp");
+
+	// [문제] 파일에 있는 단어를 list에 저장하라.
+	// list를 사전기준으로 오름차순 정렬하라.
+	// 화면에 출력하라
+
+	ifstream in{ "2026 1학기 STL.txt" };
+	if (not in) return 20260429;
+
+	cout << "파일 읽는중";
+	list<YString> cont{ istream_iterator<YString>{in}, {} };
+	cout << endl;
+
+	cont.sort([](const YString& a, const YString& b) {
+		return lexicographical_compare(a.data(), a.data() + a.size(), b.data(), b.data() + b.size());
+		});
+	
+	cout << "읽은 단어 개수 - " << cont.size() << endl;
+
+	// [문제] 같은 단어가 많아서 같은단어 다 없애면 모두 몇단어 인지 출력
+
+	cont.unique([](const YString& a, const YString& b) {
+		return a == b;
+		});
+	for (const YString& ys : cont)
+		cout << ys << endl;
+
+	cout << "같은 단어 제거한 후 결과" << endl;
+	cout << "단어 수 - " << cont.size() << endl;
+
+	// [문제] 사용자가 입력한 단어가 있는지 알려주자
+
+	while (true) {
+		cout << "찾을 단어는? ";
+		YString word;
+		cin >> word;
+
+		// unique 실행 후 단어가 있다면 몇번째 단어인지 없으면 없는 단어라고 출력
+		list<YString>::iterator p = find(cont.begin(), cont.end(), word);
+		if (p == cont.end()) cout << "없는 단어" << endl;
+		else cout << word << "는 " << distance(cont.begin(), p) + 1 << "번째 단어" << endl;
+	}
+}
+
+
+-------------------------------------------------
+저장시간 - 2026-05-06 12:09:47.4081603
+-------------------------------------------------
+
+//------------------------------------------------------------------------------------------------------------
+// 2026 1학기 STL 화56 수34		5월 6일                                                             (10주 2일)
+//------------------------------------------------------------------------------------------------------------
+// STL 컨테이너 - Containers are objects that store other objects
+// array<T, N> - 유일하게 크기 고정된 자료구조
+// vector<T> - dynamic array -> random access(임의의 위치에 접근이 O(1))
+// list<T> - 임의의 위치에서 추가/제거 동작이 O(1)
+//------------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <list>
+#include <algorithm>
+#include <fstream>
+#include <vector>
+#include "save.h"
+#include "YString.h"
+using namespace std;
+
+extern bool 관찰;
+
+int main() {
+	save("메인.cpp");
+
+	// [문제] 파일에 있는 단어를 list에 저장하라.
+	// list를 사전기준으로 오름차순 정렬하라.
+	// 화면에 출력하라
+
+	ifstream in{ "2026 1학기 STL.txt" };
+	if (not in) return 20260429;
+
+	cout << "파일 읽는중";
+	vector<YString> cont{ istream_iterator<YString>{in}, {} };
+	cout << endl;
+
+	sort(cont.begin(), cont.end(), [](const YString& a, const YString& b) {
+		return lexicographical_compare(a.data(), a.data() + a.size(), b.data(), b.data() + b.size());
+		});
+	
+	cout << "읽은 단어 개수 - " << cont.size() << endl;
+
+	// [문제] 같은 단어가 많아서 같은단어 다 없애면 모두 몇단어 인지 출력
+
+	auto newEnd = unique(cont.begin(), cont.end(), [](const YString& a, const YString& b) {
+		return a == b;
+		});
+	cont.erase(newEnd, cont.end());
+
+	for (const YString& ys : cont)
+		cout << ys << endl;
+
+	cout << "같은 단어 제거한 후 결과" << endl;
+	cout << "단어 수 - " << cont.size() << endl;
+
+	// [문제] 사용자가 입력한 단어가 있는지 알려주자
+
+	while (true) {
+		cout << "찾을 단어는? ";
+		YString word;
+		cin >> word;
+
+		// unique 실행 후 단어가 있다면 몇번째 단어인지 없으면 없는 단어라고 출력
+		vector<YString>::iterator p = find(cont.begin(), cont.end(), word);
+		if (p == cont.end()) cout << "없는 단어" << endl;
+		else cout << word << "는 " << distance(p, cont.begin()) + 1 << "번째 단어" << endl;
+	}
+}
+
+
+-------------------------------------------------
+저장시간 - 2026-05-06 12:37:13.7992372
+-------------------------------------------------
+
+//------------------------------------------------------------------------------------------------------------
+// 2026 1학기 STL 화56 수34		5월 6일                                                             (10주 2일)
+//------------------------------------------------------------------------------------------------------------
+// STL 컨테이너 - Containers are objects that store other objects
+// array<T, N> - 유일하게 크기 고정된 자료구조
+// vector<T> - dynamic array -> random access(임의의 위치에 접근이 O(1))
+// list<T> - 임의의 위치에서 추가/제거 동작이 O(1)
+//------------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <list>
+#include <algorithm>
+#include <fstream>
+#include <vector>
+#include "save.h"
+#include "YString.h"
+using namespace std;
+
+extern bool 관찰;
+
+int main() {
+	save("메인.cpp");
+
+	// [문제] 파일에 있는 단어를 list에 저장하라.
+	// list를 사전기준으로 오름차순 정렬하라.
+	// 화면에 출력하라
+
+	ifstream in{ "2026 1학기 STL.txt" };
+	if (not in) return 20260429;
+
+	cout << "파일 읽는중";
+	vector<YString> cont;
+	cont.reserve(50000);
+	cont.assign(istream_iterator<YString>{in}, {});
+	cout << endl;
+
+	sort(cont.begin(), cont.end(), [](const YString& a, const YString& b) {
+		return lexicographical_compare(a.data(), a.data() + a.size(), b.data(), b.data() + b.size());
+		});
+	
+	cout << "읽은 단어 개수 - " << cont.size() << endl;
+
+	// [문제] 같은 단어가 많아서 같은단어 다 없애면 모두 몇단어 인지 출력
+
+	auto newEnd = unique(cont.begin(), cont.end(), [](const YString& a, const YString& b) {
+		return a == b;
+		});
+	cont.erase(newEnd, cont.end());
+
+	for (const YString& ys : cont)
+		cout << ys << endl;
+
+	cout << "같은 단어 제거한 후 결과" << endl;
+	cout << "단어 수 - " << cont.size() << endl;
+
+	// [문제] 사용자가 입력한 단어가 있는지 알려주자
+
+	while (true) {
+		cout << "찾을 단어는? ";
+		YString word;
+		cin >> word;
+
+		// unique 실행 후 단어가 있다면 몇번째 단어인지 없으면 없는 단어라고 출력
+		vector<YString>::iterator p = find(cont.begin(), cont.end(), word);
+		if (p == cont.end()) cout << "없는 단어" << endl;
+		else cout << word << "는 " << distance(cont.begin(), p) + 1 << "번째 단어" << endl;
+	}
+}
+
+
+-------------------------------------------------
+저장시간 - 2026-05-06 12:41:06.0929871
+-------------------------------------------------
+
+//------------------------------------------------------------------------------------------------------------
+// 2026 1학기 STL 화56 수34		5월 6일                                                             (10주 2일)
+//------------------------------------------------------------------------------------------------------------
+// STL 컨테이너 - Containers are objects that store other objects
+// array<T, N> - 유일하게 크기 고정된 자료구조
+// vector<T> - dynamic array -> random access(임의의 위치에 접근이 O(1))
+// list<T> - 임의의 위치에서 추가/제거 동작이 O(1)
+//------------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <list>
+#include <algorithm>
+#include <fstream>
+#include <vector>
+#include "save.h"
+#include "YString.h"
+using namespace std;
+
+extern bool 관찰;
+
+int main() {
+	save("메인.cpp");
+
+	// [문제] 파일에 있는 단어를 list에 저장하라.
+	// list를 사전기준으로 오름차순 정렬하라.
+	// 화면에 출력하라
+
+	ifstream in{ "2026 1학기 STL.txt" };
+	if (not in) return 20260429;
+
+	cout << "파일 읽는중";
+	vector<YString> cont;
+	cont.reserve(50000);
+	cont.assign(istream_iterator<YString>{in}, {});
+	cout << endl;
+
+	sort(cont.begin(), cont.end(), [](const YString& a, const YString& b) {
+		return lexicographical_compare(a.data(), a.data() + a.size(), b.data(), b.data() + b.size());
+		});
+	
+	cout << "읽은 단어 개수 - " << cont.size() << endl;
+
+	// [문제] 같은 단어가 많아서 같은단어 다 없애면 모두 몇단어 인지 출력
+
+	auto newEnd = unique(cont.begin(), cont.end(), [](const YString& a, const YString& b) {
+		return a == b;
+		});
+	cont.erase(newEnd, cont.end());
+
+	cout << "같은 단어 제거한 후 결과" << endl;
+	cout << "단어 수 - " << cont.size() << endl;
+
+	// [문제] 뒤에서 부터 10개를 show()
+	관찰 = true;
+	for (int i = 0; i < 10; ++i)
+		(cont.end() - 1 - i)->show();
+	관찰 = false;
+}
+
+
+-------------------------------------------------
+저장시간 - 2026-05-06 12:45:29.9603867
+-------------------------------------------------
+
+//------------------------------------------------------------------------------------------------------------
+// 2026 1학기 STL 화56 수34		5월 6일                                                             (10주 2일)
+//------------------------------------------------------------------------------------------------------------
+// STL 컨테이너 - Containers are objects that store other objects
+// array<T, N> - 유일하게 크기 고정된 자료구조
+// vector<T> - dynamic array -> random access(임의의 위치에 접근이 O(1))
+// list<T> - 임의의 위치에서 추가/제거 동작이 O(1)
+//------------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <list>
+#include <algorithm>
+#include <fstream>
+#include <vector>
+#include "save.h"
+#include "YString.h"
+using namespace std;
+
+extern bool 관찰;
+
+int main() {
+	//save("메인.cpp");
+
+	// [문제] 파일에 있는 단어를 list에 저장하라.
+	// list를 사전기준으로 오름차순 정렬하라.
+	// 화면에 출력하라
+
+	ifstream in{ "2026 1학기 STL.txt" };
+	if (not in) return 20260429;
+
+	cout << "파일 읽는중";
+	list<YString> cont;
+	cont.assign(istream_iterator<YString>{in}, {});
+	cout << endl;
+
+	cont.sort([](const YString& a, const YString& b) {
+		return lexicographical_compare(a.data(), a.data() + a.size(), b.data(), b.data() + b.size());
+		});
+	
+	cout << "읽은 단어 개수 - " << cont.size() << endl;
+
+	// [문제] 같은 단어가 많아서 같은단어 다 없애면 모두 몇단어 인지 출력
+
+	cont.unique([](const YString& a, const YString& b) {
+		return a == b;
+		});
+
+	cout << "같은 단어 제거한 후 결과" << endl;
+	cout << "단어 수 - " << cont.size() << endl;
+
+	// [문제]뒤에서 부터 10개를 show()
+	관찰 = true;
+	for (int i = 0; i < 10; ++i)
+		cont.rbegin()[i].show();
+	관찰 = false;
+}
+
+
+-------------------------------------------------
+저장시간 - 2026-05-06 12:48:28.3303841
+-------------------------------------------------
+
+//------------------------------------------------------------------------------------------------------------
+// 2026 1학기 STL 화56 수34		5월 6일                                                             (10주 2일)
+//------------------------------------------------------------------------------------------------------------
+// STL 컨테이너 - Containers are objects that store other objects
+// array<T, N> - 유일하게 크기 고정된 자료구조
+// vector<T> - dynamic array -> random access(임의의 위치에 접근이 O(1))
+// list<T> - 임의의 위치에서 추가/제거 동작이 O(1)
+//------------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <list>
+#include <algorithm>
+#include <fstream>
+#include <vector>
+#include "save.h"
+#include "YString.h"
+using namespace std;
+
+extern bool 관찰;
+
+int main() {
+	save("메인.cpp");
+
+	// [문제] 파일에 있는 단어를 list에 저장하라.
+	// list를 사전기준으로 오름차순 정렬하라.
+	// 화면에 출력하라
+
+	ifstream in{ "2026 1학기 STL.txt" };
+	if (not in) return 20260429;
+
+	cout << "파일 읽는중";
+	list<YString> cont;
+	cont.assign(istream_iterator<YString>{in}, {});
+	cout << endl;
+
+	cont.sort([](const YString& a, const YString& b) {
+		return lexicographical_compare(a.data(), a.data() + a.size(), b.data(), b.data() + b.size());
+		});
+	
+	cout << "읽은 단어 개수 - " << cont.size() << endl;
+
+	// [문제] 같은 단어가 많아서 같은단어 다 없애면 모두 몇단어 인지 출력
+
+	cont.unique([](const YString& a, const YString& b) {
+		return a == b;
+		});
+
+	cout << "같은 단어 제거한 후 결과" << endl;
+	cout << "단어 수 - " << cont.size() << endl;
+
+	// [문제]뒤에서 부터 10개를 show()
+	auto end = cont.end();
+	관찰 = true;
+	for (int i = 0; i< 10; ++i)
+		(--end)->show();
+	관찰 = false;
+}
+
+
+-------------------------------------------------
+저장시간 - 2026-05-06 12:51:06.7141321
+-------------------------------------------------
+
+//------------------------------------------------------------------------------------------------------------
+// 2026 1학기 STL 화56 수34		5월 6일                                                             (10주 2일)
+//------------------------------------------------------------------------------------------------------------
+// STL 컨테이너 - Containers are objects that store other objects
+// array<T, N> - 유일하게 크기 고정된 자료구조
+// vector<T> - dynamic array -> random access(임의의 위치에 접근이 O(1))
+// list<T> - 임의의 위치에서 추가/제거 동작이 O(1)
+//------------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <list>
+#include <algorithm>
+#include <fstream>
+#include <vector>
+#include <ranges>
+#include "save.h"
+#include "YString.h"
+using namespace std;
+
+extern bool 관찰;
+
+int main() {
+	save("메인.cpp");
+
+	// [문제] 파일에 있는 단어를 list에 저장하라.
+	// list를 사전기준으로 오름차순 정렬하라.
+	// 화면에 출력하라
+
+	ifstream in{ "2026 1학기 STL.txt" };
+	if (not in) return 20260429;
+
+	cout << "파일 읽는중";
+	list<YString> cont;
+	cont.assign(istream_iterator<YString>{in}, {});
+	cout << endl;
+
+	cont.sort([](const YString& a, const YString& b) {
+		return lexicographical_compare(a.data(), a.data() + a.size(), b.data(), b.data() + b.size());
+		});
+	
+	cout << "읽은 단어 개수 - " << cont.size() << endl;
+
+	// [문제] 같은 단어가 많아서 같은단어 다 없애면 모두 몇단어 인지 출력
+
+	cont.unique([](const YString& a, const YString& b) {
+		return a == b;
+		});
+
+	cout << "같은 단어 제거한 후 결과" << endl;
+	cout << "단어 수 - " << cont.size() << endl;
+
+	// [문제]뒤에서 부터 10개를 show()
+	관찰 = true;
+	for (const YString& ys : cont | views::reverse | views::take(10))
+		ys.show();
+	관찰 = false;
+}
+
+
+-------------------------------------------------
+저장시간 - 2026-05-06 13:08:38.5708804
+-------------------------------------------------
+
+//------------------------------------------------------------------------------------------------------------
+// 2026 1학기 STL 화56 수34		5월 6일                                                             (10주 2일)
+//------------------------------------------------------------------------------------------------------------
+// STL 컨테이너 - Containers are objects that store other objects
+// Sequnce Container
+// array<T, N> - 유일하게 크기 고정된 자료구조
+// vector<T> - 캐시 효율성 (Cache Locality)
+// list<T> - 임의의 위치에서 추가/제거 동작이 O(1)
+// deque<T> - vector와 list의 장점을 활용하려는 자료구조
+//------------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <deque>
+#include "save.h"
+#include "YString.h"
+using namespace std;
+
+extern bool 관찰;
+
+int main() {
+	deque<int> numbers{ 1, 2, 3, 4 };
+
+	// 원소의 메모리 위치를 확인한다 - contigous
+	for (int i = 0; i < numbers.size(); ++i) 
+		cout << addressof(numbers[i]) << endl;
+
+	save("메인.cpp");
+}
+
+
+-------------------------------------------------
+저장시간 - 2026-05-06 13:10:31.8804772
+-------------------------------------------------
+
+//------------------------------------------------------------------------------------------------------------
+// 2026 1학기 STL 화56 수34		5월 6일                                                             (10주 2일)
+//------------------------------------------------------------------------------------------------------------
+// STL 컨테이너 - Containers are objects that store other objects
+// Sequnce Container
+// array<T, N> - 유일하게 크기 고정된 자료구조
+// vector<T> - 캐시 효율성 (Cache Locality)
+// list<T> - 임의의 위치에서 추가/제거 동작이 O(1)
+// deque<T> - vector와 list의 장점을 활용하려는 자료구조
+//------------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <deque>
+#include "save.h"
+#include "YString.h"
+using namespace std;
+
+extern bool 관찰;
+
+int main() {
+	deque<int> numbers{ 1, 2, 3, 4 };
+
+	// 원소의 메모리 위치를 확인한다 - contigous
+	for (int i = 0; i < numbers.size(); ++i) 
+		cout << addressof(numbers[i]) << endl;
+
+	cout << "원소 한 개 추가" << endl;
+	numbers.push_back(5);
+
+	for (int i = 0; i < numbers.size(); ++i) 
+		cout << addressof(numbers[i]) << endl;
+
+	save("메인.cpp");
+}
+
+
+-------------------------------------------------
+저장시간 - 2026-05-06 13:11:46.4844280
+-------------------------------------------------
+
+//------------------------------------------------------------------------------------------------------------
+// 2026 1학기 STL 화56 수34		5월 6일                                                             (10주 2일)
+//------------------------------------------------------------------------------------------------------------
+// STL 컨테이너 - Containers are objects that store other objects
+// Sequnce Container
+// array<T, N> - 유일하게 크기 고정된 자료구조
+// vector<T> - 캐시 효율성 (Cache Locality)
+// list<T> - 임의의 위치에서 추가/제거 동작이 O(1)
+// deque<T> - vector와 list의 장점을 활용하려는 자료구조
+//------------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <deque>
+#include "save.h"
+#include "YString.h"
+using namespace std;
+
+extern bool 관찰;
+
+int main() {
+	deque<int> numbers{ 1, 2, 3, 4 };
+
+	// 원소의 메모리 위치를 확인한다 - contigous
+	for (int i = 0; i < numbers.size(); ++i) 
+		cout << addressof(numbers[i]) << endl;
+
+	cout << "원소 한 개 추가" << endl;
+	numbers.push_back(5);
+
+	for (int i = 0; i < numbers.size(); ++i) 
+		cout << addressof(numbers[i]) << endl;
+
+	cout << "원소 한 개 추가" << endl;
+	numbers.push_front(0);
+
+	for (int i = 0; i < numbers.size(); ++i) 
+		cout << addressof(numbers[i]) << endl;
+
+	save("메인.cpp");
+}
+
